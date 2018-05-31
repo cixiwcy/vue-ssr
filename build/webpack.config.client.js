@@ -20,7 +20,7 @@ const devServer = {
     port: 8000,
     host: '0.0.0.0',
     overlay: {
-      errors: true
+        errors: true
     },
     hot: true
 }
@@ -31,57 +31,57 @@ if (isDev) {
     config = merge(baseConfig, {
         devtool: '#cheap-module-eval-source-map',
         module: {
-          rules: [
-            {
-              test: /\.styl/,
-              use: [
-                'vue-style-loader',
-                'css-loader',
+            rules: [
                 {
-                  loader: 'postcss-loader',
-                  options: {
-                    sourceMap: true
-                  }
-                },
-                'stylus-loader'
-              ]
-            }
-          ]
+                    test: /\.styl/,
+                    use: [
+                        'vue-style-loader',
+                        'css-loader',
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        'stylus-loader'
+                    ]
+                }
+            ]
         },
         devServer,
         plugins: defaultPlugins.concat([
-          new webpack.HotModuleReplacementPlugin(),
-          new webpack.NoEmitOnErrorsPlugin()
+            new webpack.HotModuleReplacementPlugin(),
+            new webpack.NoEmitOnErrorsPlugin()
         ])
-      })
+    })
 } else {
     config = merge(baseConfig, {
-        entry : {
+        entry: {
             app: path.join(__dirname, '../client/index.js'),
             vendor: ['vue']
         },
-        output:{
+        output: {
             filename: '[name].[chunkhash:8].js',
-        
+
         },
         module: {
             rules: [
-              {
-                test: /\.styl/,
-                use: ExtractPlugin.extract({
-                  fallback: 'vue-style-loader',
-                  use: [
-                    'css-loader',
-                    {
-                      loader: 'postcss-loader',
-                      options: {
-                        sourceMap: true
-                      }
-                    },
-                    'stylus-loader'
-                  ]
-                })
-              }
+                {
+                    test: /\.styl/,
+                    use: ExtractPlugin.extract({
+                        fallback: 'vue-style-loader',
+                        use: [
+                            'css-loader',
+                            {
+                                loader: 'postcss-loader',
+                                options: {
+                                    sourceMap: true
+                                }
+                            },
+                            'stylus-loader'
+                        ]
+                    })
+                }
             ]
         },
         plugins: defaultPlugins.concat([
